@@ -1,52 +1,22 @@
+from PyQt6 import uic
 from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QPushButton,
-    QLabel, QGridLayout, QLineEdit,
-    QListWidget,QInputDialog, QFileDialog, QMessageBox
+    QWidget, QPushButton, QLabel,
+    QInputDialog, QFileDialog, QMessageBox
 )
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QSize
 
 from manager import StockManager
 
-
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
+        uic.loadUi("ui.ui", self)
 
-        # Title
-        self.setWindowTitle("Stock Manager")
-        # Window Frame Size
-        self.resize(800, 400)
-
-        # Class StockManager
         self.manager = StockManager()
-
-        # Grid Items list
-        self.list_items_grid = QGridLayout()
-
-        # Add New Item
-        self.name_input = QLineEdit()
-        self.name_input.setPlaceholderText("New item name")
-        btn_add = QPushButton("Add New Item")
-        btn_add.clicked.connect(self.add_new_item)
-
-        # Grid Items in Stock
-        self.stock_grid = QGridLayout()
-
-        # Grouping Widgets Vertically
-        layout = QVBoxLayout()
-
-        layout.addWidget(QLabel("List Items"))
-        layout.addLayout(self.list_items_grid)
-
-        layout.addWidget(self.name_input)
-        layout.addWidget(btn_add)
-
-        layout.addWidget(QLabel("In Stock"))
-        layout.addLayout(self.stock_grid)
-
-        self.setLayout(layout)
-
+        
+        self.btn_add.clicked.connect(self.add_new_item)
+        
         self.update_all()
 
     # List Items
